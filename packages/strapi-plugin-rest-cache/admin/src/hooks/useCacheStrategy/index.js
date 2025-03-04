@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef } from 'react';
-import { request, useNotification } from '@strapi/helper-plugin';
+import { useNotification , useFetchClient  } from '@strapi/strapi/admin';
 import init from './init';
 import pluginId from '../../pluginId';
 import reducer, { initialState } from './reducer';
@@ -10,6 +10,7 @@ const useCacheStrategy = (shouldFetchData = true) => {
     initialState,
     () => init(initialState, shouldFetchData)
   );
+  const { get } = useFetchClient();
   const toggleNotification = useNotification();
 
   const isMounted = useRef(true);
@@ -34,8 +35,7 @@ const useCacheStrategy = (shouldFetchData = true) => {
         type: 'GET_DATA',
       });
 
-      const { strategy } = await request(`/${pluginId}/config/strategy`, {
-        method: 'GET',
+      const { strategy } = await get(`/${pluginId}/config/strategy`, {
         signal,
       });
 
@@ -54,7 +54,7 @@ const useCacheStrategy = (shouldFetchData = true) => {
         if (message !== 'Forbidden') {
           toggleNotification({
             type: 'warning',
-            message,
+            message: formatMessage(message),
           });
         }
       }

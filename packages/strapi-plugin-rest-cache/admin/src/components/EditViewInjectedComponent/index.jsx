@@ -1,5 +1,8 @@
 import React from 'react';
-import { useCMEditViewDataManager, useRBAC } from '@strapi/helper-plugin';
+import {
+  unstable_useContentManagerContext as useCMEditViewDataManager,
+  useRBAC,
+} from '@strapi/strapi/admin';
 import cachePermissions from '../../permissions';
 import PurgeCacheButton from '../PurgeCacheButton';
 

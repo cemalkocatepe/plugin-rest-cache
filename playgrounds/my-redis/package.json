@@ -11,12 +11,27 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "@strapi-community/plugin-redis": "^2.0.0",
     "@strapi/plugin-cloud": "5.10.4",
     "@strapi/plugin-users-permissions": "5.10.4",
     "@strapi/strapi": "5.10.4",
     "better-sqlite3": "11.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-router-dom": "^6.0.0",
+    "strapi-plugin-rest-cache": "^4.2.9",
+    "strapi-provider-rest-cache-redis": "^4.2.9",
+    "styled-components": "^6.0.0"
+  },
+  "resolutions": {
+    "strapi-plugin-rest-cache": "file:D:/laragon/www/plugin-rest-cache/packages/strapi-plugin-rest-cache",
+    "strapi-provider-rest-cache-redis": "file:D:/laragon/www/plugin-rest-cache/packages/strapi-provider-rest-cache-redis"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-is": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0"
   },

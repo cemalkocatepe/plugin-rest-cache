@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { Button } from '@strapi/design-system/Button';
-import Refresh from '@strapi/icons/Refresh';
-import { ConfirmDialog, useNotification, request } from '@strapi/helper-plugin';
+import { Button } from '@strapi/design-system';
+import { ArrowsCounterClockwise } from '@strapi/icons';
+import {
+  ConfirmDialog,
+  useNotification,
+  useFetchClient,
+} from '@strapi/strapi/admin';
 import PropTypes from 'prop-types';
 
 import pluginId from '../../pluginId';
 import { useCacheStrategy } from '../../hooks';
 
-function PurgeCacheButton({ contentType, params, wildcard }) {
+function PurgeCacheButton({ contentType, params = {}, wildcard = undefined }) {
   const { strategy } = useCacheStrategy();
+  const { post } = useFetchClient();
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [isModalConfirmButtonLoading, setIsModalConfirmButtonLoading] =
@@ -35,22 +40,22 @@ function PurgeCacheButton({ contentType, params, wildcard }) {
       // Show the loading state
       setIsModalConfirmButtonLoading(true);
 
-      await request(`/${pluginId}/purge`, {
-        method: 'POST',
-        signal,
-        body: {
+      await post(
+        `/${pluginId}/purge`,
+        {
           contentType,
           params,
           wildcard,
         },
-      });
+        { signal: signal }
+      );
 
       toggleNotification({
         type: 'success',
-        message: {
+        message: formatMessage({
           id: 'cache.purge.success',
           defaultMessage: 'Cache purged successfully',
-        },
+        }),
       });
 
       setIsModalConfirmButtonLoading(false);
@@ -64,12 +69,15 @@ function PurgeCacheButton({ contentType, params, wildcard }) {
       if (errorMessage) {
         toggleNotification({
           type: 'warning',
-          message: { id: 'cache.purge.error', defaultMessage: errorMessage },
+          message: formatMessage({
+            id: 'cache.purge.error',
+            defaultMessage: errorMessage,
+          }),
         });
       } else {
         toggleNotification({
           type: 'warning',
-          message: { id: 'notification.error' },
+          message: formatMessage({ id: 'notification.error' }),
         });
       }
     }
@@ -88,7 +96,7 @@ function PurgeCacheButton({ contentType, params, wildcard }) {
       <Button
         onClick={toggleConfirmModal}
         size="S"
-        startIcon={<Refresh />}
+        startIcon={<ArrowsCounterClockwise />}
         variant="danger"
       >
         {formatMessage({
@@ -110,7 +118,7 @@ function PurgeCacheButton({ contentType, params, wildcard }) {
           defaultMessage:
             'Are you sure you want to purge REST Cache for this entry?',
         }}
-        iconRightButton={<Refresh />}
+        iconRightButton={<ArrowsCounterClockwise />}
         rightButtonText={{
           id: 'cache.purge.confirm-modal-confirm',
           defaultMessage: 'Purge REST Cache',
@@ -124,10 +132,6 @@ PurgeCacheButton.propTypes = {
   contentType: PropTypes.string.isRequired,
   params: PropTypes.object,
   wildcard: PropTypes.bool,
-};
-PurgeCacheButton.defaultProps = {
-  params: {},
-  wildcard: undefined,
 };
 
 export default PurgeCacheButton;

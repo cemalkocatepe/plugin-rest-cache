@@ -70,7 +70,10 @@
     "strapi-provider-rest-cache-memory": "^4.2.9"
   },
   "devDependencies": {
-    "@strapi/strapi": "^4.11.7",
+    "@strapi/design-system": "^1.19.0",
+    "@strapi/icons": "^1.19.0",
+    "@strapi/strapi": "^5.10.4",
+    "@types/react": "^18.0.0",
     "koa": "^2.11.0",
     "npm-run-all": "^4.1.5",
     "react": "^18.0.0",
@@ -78,9 +81,9 @@
     "react-intl": "^5.24.7",
     "react-is": "^18.0.0",
     "react-redux": "^7.2.2",
-    "react-router-dom": "5.3.4",
+    "react-router-dom": "^6.0.0",
     "redux": "^4.0.5",
-    "styled-components": "5.3.3"
+    "styled-components": "^6.0.0"
   },
   "peerDependencies": {
     "@strapi/strapi": "^4.0.5"

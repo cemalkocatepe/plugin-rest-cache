@@ -1,6 +1,6 @@
 // import pluginId from './pluginId';
 
-const pluginPermissions = {
+/* const pluginPermissions = {
   purge: [{ action: `plugin::rest-cache.cache.purge`, subject: null }],
   readStrategy: [
     {
@@ -14,6 +14,12 @@ const pluginPermissions = {
       subject: null,
     },
   ],
-};
+}; */
+
+const pluginPermissions = [
+  { action: `plugin::rest-cache.cache.purge`, subject: null },
+  { action: `plugin::rest-cache.cache.read-strategy`, subject: null },
+  { action: `plugin::rest-cache.cache.read-provider`, subject: null },
+];
 
 export default pluginPermissions;
