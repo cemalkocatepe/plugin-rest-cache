@@ -30,7 +30,6 @@
   },
   "license": "MIT",
   "resolutions": {
-    "**/colors": "1.4.0",
     "semver": "7.5.4",
     "vuepress-vite": "2.0.0-beta.66",
     "d3-color": "3.1.0"
@@ -70,5 +69,6 @@
     "docs/**/*.md": [
       "prettier --write"
     ]
-  }
+  },
+  "packageManager": "yarn@4.7.0"
 }
