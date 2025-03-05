@@ -9,19 +9,16 @@ import PurgeCacheButton from '../PurgeCacheButton';
 function EditViewInjectedComponent() {
   const { allowedActions } = useRBAC(cachePermissions);
 
-  const {
-    slug,
-    isCreatingEntry,
-    hasDraftAndPublish,
-    initialData,
-    isSingleType,
-  } = useCMEditViewDataManager();
+  const { slug, isCreatingEntry, hasDraftAndPublish, form, isSingleType } =
+    useCMEditViewDataManager();
+
+  const { initialValues, values, onChange } = form;
 
   if (isCreatingEntry) {
     return null;
   }
 
-  if (hasDraftAndPublish && initialData.publishedAt === null) {
+  if (hasDraftAndPublish && values.publishedAt === null) {
     return null;
   }
 
@@ -32,7 +29,7 @@ function EditViewInjectedComponent() {
   return (
     <PurgeCacheButton
       contentType={slug}
-      params={isSingleType ? {} : initialData}
+      params={isSingleType ? {} : values}
       wildcard={isSingleType}
     />
   );

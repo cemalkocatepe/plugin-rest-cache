@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { Button } from '@strapi/design-system';
+import { Button, Dialog } from '@strapi/design-system';
 import { ArrowsCounterClockwise } from '@strapi/icons';
 import {
   ConfirmDialog,
@@ -20,7 +20,7 @@ function PurgeCacheButton({ contentType, params = {}, wildcard = undefined }) {
   const [isModalConfirmButtonLoading, setIsModalConfirmButtonLoading] =
     useState(false);
   const { formatMessage } = useIntl();
-  const toggleNotification = useNotification();
+  const { toggleNotification } = useNotification();
 
   const abortController = new AbortController();
   const { signal } = abortController;
@@ -32,8 +32,9 @@ function PurgeCacheButton({ contentType, params = {}, wildcard = undefined }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const toggleConfirmModal = () =>
-    setShowConfirmModal((prevState) => !prevState);
+  const toggleConfirmModal = () => {
+    setShowConfirmModal(!showConfirmModal);
+  };
 
   const handleConfirmDelete = async () => {
     try {
@@ -104,26 +105,35 @@ function PurgeCacheButton({ contentType, params = {}, wildcard = undefined }) {
           defaultMessage: 'Purge REST Cache',
         })}
       </Button>
-      <ConfirmDialog
-        isConfirmButtonLoading={isModalConfirmButtonLoading}
-        isOpen={showConfirmModal}
-        onConfirm={handleConfirmDelete}
-        onToggleDialog={toggleConfirmModal}
-        title={{
-          id: 'cache.purge.confirm-modal-title',
-          defaultMessage: 'Confirm purging REST Cache?',
-        }}
-        bodyText={{
-          id: 'cache.purge.confirm-modal-body',
-          defaultMessage:
-            'Are you sure you want to purge REST Cache for this entry?',
-        }}
-        iconRightButton={<ArrowsCounterClockwise />}
-        rightButtonText={{
-          id: 'cache.purge.confirm-modal-confirm',
-          defaultMessage: 'Purge REST Cache',
-        }}
-      />
+      <Dialog.Root open={showConfirmModal} onOpenChange={setShowConfirmModal}>
+        <ConfirmDialog
+          icon={<ArrowsCounterClockwise />}
+          title={formatMessage({
+            id: 'cache.purge.confirm-modal-title',
+            defaultMessage: 'Confirm purging REST Cache?',
+          })}
+          children={formatMessage({
+            id: 'cache.purge.confirm-modal-body',
+            defaultMessage:
+              'Are you sure you want to purge REST Cache for this entry?',
+          })}
+          endAction={
+            <Dialog.Action>
+              <Button
+                fullWidth
+                onClick={handleConfirmDelete}
+                variant="danger-light"
+                loading={isModalConfirmButtonLoading}
+              >
+                {formatMessage({
+                  id: 'cache.purge.confirm-modal-confirm',
+                  defaultMessage: 'Purge REST Cache',
+                })}
+              </Button>
+            </Dialog.Action>
+          }
+        />
+      </Dialog.Root>
     </>
   );
 }

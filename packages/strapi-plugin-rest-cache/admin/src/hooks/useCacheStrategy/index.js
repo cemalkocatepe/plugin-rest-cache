@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef } from 'react';
-import { useNotification , useFetchClient  } from '@strapi/strapi/admin';
+import { useNotification, useFetchClient } from '@strapi/strapi/admin';
 import init from './init';
 import pluginId from '../../pluginId';
 import reducer, { initialState } from './reducer';
@@ -35,13 +35,13 @@ const useCacheStrategy = (shouldFetchData = true) => {
         type: 'GET_DATA',
       });
 
-      const { strategy } = await get(`/${pluginId}/config/strategy`, {
+      const { data } = await get(`/${pluginId}/config/strategy`, {
         signal,
       });
 
       dispatch({
         type: 'GET_DATA_SUCCEEDED',
-        data: strategy,
+        data: data?.strategy ?? {},
       });
     } catch (err) {
       const message = err?.response?.payload?.message ?? 'An error occured';
