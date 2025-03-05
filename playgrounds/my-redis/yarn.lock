@@ -13179,7 +13179,7 @@ __metadata:
 
 "strapi-plugin-rest-cache@file:D:/laragon/www/plugin-rest-cache/packages/strapi-plugin-rest-cache::locator=%40strapi-plugin-rest-cache%2Fplayground-my-redis%40workspace%3A.":
   version: 4.2.9
-  resolution: "strapi-plugin-rest-cache@file:/D%3A/laragon/www/plugin-rest-cache/packages/strapi-plugin-rest-cache#/D%3A/laragon/www/plugin-rest-cache/packages/strapi-plugin-rest-cache::hash=e48dc3&locator=%40strapi-plugin-rest-cache%2Fplayground-my-redis%40workspace%3A."
+  resolution: "strapi-plugin-rest-cache@file:/D%3A/laragon/www/plugin-rest-cache/packages/strapi-plugin-rest-cache#/D%3A/laragon/www/plugin-rest-cache/packages/strapi-plugin-rest-cache::hash=7cdf57&locator=%40strapi-plugin-rest-cache%2Fplayground-my-redis%40workspace%3A."
   dependencies:
     "@koa/router": "npm:^10.1.1"
     chalk: "npm:^4.1.2"
@@ -13189,7 +13189,7 @@ __metadata:
     strapi-provider-rest-cache-memory: "npm:^4.2.9"
   peerDependencies:
     "@strapi/strapi": ^4.0.5
-  checksum: 10c0/aa575677b6eedf5848fa1dde916fd13532578bdfea042ccb85358e776d89cb4450c171833e45474b71501937325e7e331956c3f54c68c72527f25d144878875d
+  checksum: 10c0/cda9e1a80b618e2302cd0edb94863c2433877935cc37b3bd0355c44514a376071222f16f280aa9b81d5fd20fbc9e81555e55abf90790f9914a4d95a5da41955e
   languageName: node
   linkType: hard
 
